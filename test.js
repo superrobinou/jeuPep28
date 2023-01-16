@@ -1,35 +1,60 @@
+let count = 0;
         var images = 10;
+    let win=0;
     var columns = 5;
-    var space = 2;
-    var startRow = 10;
-    var startLine = 10;
     var ctx = document.getElementById('memorygame');
-    for (var i = 1; i <= images * 2+1; i++) {
-        loadFaceImage(startRow,startLine);    
-        if ((i-1) % 5==0 && i-1!=0) {
-            console.log(i-1);
-            startLine = startLine + 128 + space;
-            startRow = 10;
-        }
-        else {
-            startRow = startRow + 128 + space;
-        }
+    var clicked=false;
+    for (var i = 1; i <= images * 2; i++) {
+        var j=i;
+        if(i>10){j=i-10;}
+        
+        loadFaceImage(j);
+        
     }
 
-    function loadFaceImage(startRow,startLine){
-        img=new Image();
-        img.onload=function () {
-            var div=document.createElement("div");
-            var img=document.createElement("img");
-            img.src="face.jpg";
-            img.id="img_"+i;
-            img.naturalHeight=128;
-            img.naturalWidth=128;
-            img.width=128;
-            img.height=128;
-            div.appendChild(img);
-            ctx.appendChild(div);
-            img.addEventListener('click', function () { console.log('clicked') });
-        }
-        img.src = 'face.jpg';
-    } 
+    function loadFaceImage(j){
+        var divBack = document.createElement("div");
+        divBack.classList.add("divBack");
+        imgBack=new Image();
+        imgBack.src = "face.jpg";
+        var linkBack = document.createElement("button");
+        linkBack.appendChild(imgBack);
+        divBack.appendChild(linkBack);
+        ctx.appendChild(divBack);
+        imgBack.setAttribute('data-realImage', "assets/title/title_" + j + ".jpg");
+        imgBack.setAttribute('data-isShowed',"false");
+        imgBack.addEventListener('click', function () {
+            console.log(count+","+j);
+            if (this.getAttribute('data-isShowed') == "false" && count <2) {
+                this.src = this.getAttribute('data-realImage');
+                this.setAttribute("data-isShowed", "true");
+                this.setAttribute("data-id",j);
+                this.setAttribute('data-counter',count);
+                count=count+1;
+                if(count==2){
+                    setTimeout(() => {
+                        this.src = "face.jpg";
+                        var tabData=document.querySelectorAll('[data-counter="0"]');
+                        tabData[0].src = "face.jpg";
+                        if(tabData[0].getAttribute('data-id')==this.getAttribute('data-id')){
+                            tabData[0].src ="assets/face/win.jpg";
+                            this.src="assets/face/win.jpg";
+                            win=win+1;
+                            if(win==images){
+                                console.log("vous avez gagné!");
+                            }
+                        }
+                        console.log(tabData);
+                        tabData[0].setAttribute('data-IsShowed', false);
+                        tabData[0].removeAttribute("data-counter");
+                        this.setAttribute("data-IsShowed", "false"); }, 500);
+                        this.removeAttribute("data-counter");
+                        count=0;
+
+                }
+            }
+
+        });
+        
+        
+    }
