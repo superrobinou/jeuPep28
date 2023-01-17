@@ -1,7 +1,6 @@
 let count = 0;
 let arrayNumber=[1,2,3,4,5,6,7,8,9,10,1,2,3,4,5,6,7,8,9,10];
 const shuffledArray = arrayNumber.sort((a, b) => 0.5 - Math.random());
-console.log(shuffledArray);
         var images = 10;
     let win=0;
     var columns = 5;
@@ -23,7 +22,7 @@ console.log(shuffledArray);
         imgBack.setAttribute('data-realImage', "assets/title/title_" + i + ".jpg");
         imgBack.setAttribute('data-isShowed',"false");
         imgBack.addEventListener('click', function () {
-            console.log(count+","+i);
+            console.log(count); 
             if (this.getAttribute('data-isShowed') == "false" && count <2) {
                 this.src = this.getAttribute('data-realImage');
                 this.setAttribute("data-isShowed", "true");
@@ -38,17 +37,24 @@ console.log(shuffledArray);
                         if(tabData[0].getAttribute('data-id')==this.getAttribute('data-id')){
                             tabData[0].src ="assets/face/win.jpg";
                             this.src="assets/face/win.jpg";
+                            this.removeAttribute("data-IsShowed");
+                            tabData[0].removeAttribute('data-IsShowed');
                             win=win+1;
                             if(win==images){
                                 console.log("vous avez gagné!");
                             }
                         }
-                        console.log(tabData);
-                        tabData[0].setAttribute('data-IsShowed', false);
-                        tabData[0].removeAttribute("data-counter");
-                        this.setAttribute("data-IsShowed", "false"); }, 500);
+                        else{
+                            tabData[0].setAttribute('data-IsShowed',"false");
+    
+                            this.setAttribute("data-IsShowed", "false");
+
+                        }
+                        tabData[0].removeAttribute('data-counter');
                         this.removeAttribute("data-counter");
-                        count=0;
+                        count = 0;
+                     }, 500);
+
 
                 }
             }
