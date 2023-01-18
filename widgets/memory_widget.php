@@ -29,62 +29,78 @@ class Memory_Widget extends \Elementor\Widget_Base {
 		$this->start_controls_section(
 			'section_title',
 			[
-				'label' => esc_html__( 'Title', 'elementor-addon' ),
+				'label' => esc_html__( 'Content', 'textdomain' ),
 				'tab' => \Elementor\Controls_Manager::TAB_CONTENT,
 			]
 		);
-
 		$this->add_control(
-			'title',
+			'list',
 			[
-				'label' => esc_html__( 'Title', 'elementor-addon' ),
-				'type' => \Elementor\Controls_Manager::TEXTAREA,
-				'default' => esc_html__( 'Hello world', 'elementor-addon' ),
+				'label' => esc_html__( 'List', 'textdomain' ),
+				'type' => \Elementor\Controls_Manager::REPEATER,
+				'fields' => [
+				[
+				'name'=>'images',
+				'label' => esc_html__( 'Choose Image', 'textdomain' ),
+				'type' => \Elementor\Controls_Manager::MEDIA,
+				'default' => [
+					'url' => \Elementor\Utils::get_placeholder_image_src(),
+				],
+			]
+				],
+			
 			]
 		);
-
-		$this->end_controls_section();
-
-		// Content Tab End
-
-
-		// Style Tab Start
-
-		$this->start_controls_section(
-			'section_title_style',
-			[
-				'label' => esc_html__( 'Title', 'elementor-addon' ),
-				'tab' => \Elementor\Controls_Manager::TAB_STYLE,
-			]
-		);
-
 		$this->add_control(
-			'title_color',
+			'face',
 			[
-				'label' => esc_html__( 'Text Color', 'elementor-addon' ),
-				'type' => \Elementor\Controls_Manager::COLOR,
-				'selectors' => [
-					'{{WRAPPER}} .hello-world' => 'color: {{VALUE}};',
+				'label' => esc_html__( 'Choose Image', 'textdomain' ),
+				'type' => \Elementor\Controls_Manager::MEDIA,
+				'default' => [
+					'url' => \Elementor\Utils::get_placeholder_image_src(),
 				],
 			]
 		);
-
+		$this->add_control(
+			'win',
+			[
+				'label' => esc_html__( 'Choose Image', 'textdomain' ),
+				'type' => \Elementor\Controls_Manager::MEDIA,
+				'default' => [
+					'url' => \Elementor\Utils::get_placeholder_image_src(),
+				],
+			]
+		);
 		$this->end_controls_section();
+
 
 		// Style Tab End
 
 	}
  
     	public function get_script_depends() {
-		return [ 'memory_widget' ];
+		return [ 'memory_widget_js' ];
 	}
     	public function get_style_depends() {
-		return [ 'memory_widget' ];
+		return [ 'memory_widget_css' ];
 	}
 	protected function render() {
+	
 		?>
-
-		<p> Hello World </p>
+		<?php
+			$settings = $this->get_settings_for_display();
+		$list = array_column($settings['list'],'images');
+		$list = array_column($list,'url');
+		 array_push($list, ...$list);
+		shuffle($list);
+		echo '<div id="memorygame" data-win="' . $settings['win']['url'] . '" data-face="' . $settings['face']['url'] . '" style="border:1px solid #d3d3d3;">';
+		echo '<div class="win"><p>Bravo, vous avez gagné!</p> <button>rejouer</button></div>';
+		foreach ($list as $index => $item):
+			echo '<div class="divBack"><button class="memory-button"><img src="'.$settings['face']['url'].'" data-realImage="'.$item.
+			'" data-isShowed="false"></img></button></div>';
+		endforeach;
+		?>
+</div>
 
 		<?php
 	}
