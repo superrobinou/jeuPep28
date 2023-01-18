@@ -17,7 +17,7 @@ function register_memory_widget( $widgets_manager ) {
 	wp_register_script( 'memory_widget_js', plugins_url( 'memory_widget.js', __FILE__ ) );
 }
 function register_memory_widget_styles() {
-	wp_register_style( 'memory_widget_css', plugins_url( 'assets/css/memory_widget.css', __FILE__ ) );
+	wp_register_style( 'memory_widget_css', plugins_url( 'memory_widget.css', __FILE__ ) );
 }
 
 add_action( 'elementor/widgets/register', 'register_memory_widget' );
