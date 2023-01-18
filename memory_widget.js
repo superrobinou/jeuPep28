@@ -1,9 +1,16 @@
 window.onload=function(){
     let count = 0;
+    let winCount=0;  
     var core=document.getElementById("memorygame");
     let win=core.getAttribute("data-win");
     let face=core.getAttribute("data-face");
     var buttons=document.getElementsByClassName("memory-button");
+    let winEnds=buttons.length;
+    console.log(winEnds);
+    var winButton=document.getElementById("replay");
+    winButton.addEventListener('click',event=>{
+        window.location.reload();
+    });
     for (var btn of buttons){
         btn.addEventListener('click', event => {
             console.log(count);
@@ -23,6 +30,11 @@ window.onload=function(){
                             event.target.src = win;
                             event.target.removeAttribute("data-IsShowed");
                             tabData[0].removeAttribute('data-IsShowed');
+                            winCount=winCount+2;
+                            if(winCount==winEnds){
+                             var display=document.getElementById("win");
+                             display.style.display="block";
+                            }
 
                         }
                         else {

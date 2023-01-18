@@ -9,11 +9,12 @@ body{
     max-height: 100vh;
     margin: auto;
 }
-.replay{
+#replay{
 position: relative;
-background-color: rgba(0, 0, 0, 0.8);
  border:1px solid;
+background: rgba(0,0,139, 0.9);
  color:white;
+ cursor:pointer;
 left: 50%;
     transform: translateX(-50%);
 }
@@ -36,13 +37,13 @@ background: transparent;
     align-items: center;
     justify-content: center;
 }
- .win {
+ #win {
+    display: none;
     border:0;
     z-index: 2;
      position: absolute;
      font-size: 30px;
-background-color: rgba(0, 0, 0, 0.6);
-     opacity: 0.4;
+background: rgba(0, 0, 139, 0.7);
      width: 100%;
      height: fit-content;
     left: 0;
@@ -54,16 +55,13 @@ background-color: rgba(0, 0, 0, 0.6);
  }
 .legend{
     text-align: center;
+    color: white;
 }
 .divBack{
-    visibility: hidden;
 max-height: 128px;
 max-width: 128px;
-flex:1 23%;
+flex:1 18%;
 padding:0;
 margin:0;
 border:0;
-}
-.replay{
- font-size:30px;
 }

@@ -93,7 +93,7 @@ class Memory_Widget extends \Elementor\Widget_Base {
 		$list = array_column($list,'url');
 		 array_push($list, ...$list);
 		shuffle($list);
-							echo '<div class="win"><p class="legend">Bravo, vous avez gagné!</p> <button class="replay">rejouer</button></div>';
+							echo '<div id="win"><p class="legend">Bravo, vous avez gagné!</p> <button id="replay">rejouer</button></div>';
 		echo '<div id="memorygame" data-win="' . $settings['win']['url'] . '" data-face="' . $settings['face']['url'] . '">';
 		foreach ($list as $index => $item):
 			echo '<div class="divBack"><button class="memory-button"><img src="'.$settings['face']['url'].'" data-realImage="'.$item.
