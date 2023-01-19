@@ -3,7 +3,7 @@ ce fichier est la pour décrire le projet.
 Il s'agit du code source pour l'aire de jeu de pep28.
 Pour le moment, il n'y a que le code source du jeu de mémoire.
 
-##Préreq#uis
+##Préreqxuis
 Ce code source est pensé pour être utilisé avec Wordpress et l'extension Elementator.
 
 ##Problémes et forks
