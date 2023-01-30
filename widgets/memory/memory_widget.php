@@ -111,8 +111,6 @@ class Memory_Widget extends \Elementor\Widget_Base {
 	//rendu html du widget
 	protected function render() {
 	
-		?>
-		<?php
 			//récupération des paramétres enregistrés
 			$settings = $this->get_settings_for_display();
 		//récupération des urls des images dans un tableau
