@@ -1,6 +1,12 @@
 
 <?php
 class Sound_Widget extends \Elementor\Widget_Base {
+	public function __construct($data = [], $args = null)
+	{
+		parent::__construct($data, $args);
+		wp_register_script('sound_widget_js', plugins_url('sound_widget.js', __FILE__));
+		wp_register_style('sound_widget_css', plugins_url('sound_widget.css', __FILE__));
+	}
     public function get_name() {
 		return 'sound_widget';
 	}
@@ -33,51 +39,36 @@ class Sound_Widget extends \Elementor\Widget_Base {
 				'tab' => \Elementor\Controls_Manager::TAB_CONTENT,
 			]
 		);
-        	$this->add_control(
-			'list',
+		$repeater = new \Elementor\Repeater();
+		$repeater->add_control(
+			'son',
 			[
-				'label' => esc_html__( 'images et sons pour le jeu', 'textdomain' ),
-				'type' => \Elementor\Controls_Manager::REPEATER,
-				'fields' => [
-					[
-						'name' => 'image',
-						'label' => esc_html__( 'Choissisez votre image', 'textdomain' ),
-						'type' => \Elementor\Controls_Manager::MEDIA,
-					'default' => [
-					'url' => \Elementor\Utils::get_placeholder_image_src(),
-				],
-					],
-					[
-						'name' => 'son',
-						'label' => esc_html__( 'Choissisez votre son', 'textdomain' ),
-						'type' => \Elementor\Controls_Manager::MEDIA,
-						'default' => [
-					'url' => \Elementor\Utils::get_placeholder_image_src(),
-				],
-					],
-				]
-			
+				'label' => esc_html__('Content', 'textdomain'),
+				'type' => \Elementor\Controls_Manager::MEDIA,
+				'media_type'=>'audio',
 			]
 		);
-
-	$this->add_control(
-			'hearts',
+		$repeater->add_control(
+			'image',
 			[
-				'label' => esc_html__( 'image pour la vie', 'textdomain' ),
+				'label' => esc_html__('Content', 'textdomain'),
 				'type' => \Elementor\Controls_Manager::MEDIA,
-				'default' => [
-					'url' => \Elementor\Utils::get_placeholder_image_src(),
-				]
+			]
+		);
+		$this->add_control(
+			'list',
+			[
+				'label' => esc_html__('liste de son et images', 'textdomain'),
+				'type' => \Elementor\Controls_Manager::REPEATER,
+				'fields' => $repeater->get_controls(),
 			]
 		);
         $this->add_control(
 			'audiofail',
 			[
-				'label' => esc_html__( 'son lorsque le joueur fail', 'textdomain' ),
+				'label' => esc_html__( 'son lorsque le joueur perd', 'textdomain' ),
 				'type' => \Elementor\Controls_Manager::MEDIA,
-				'default' => [
-					'url' => \Elementor\Utils::get_placeholder_image_src(),
-				]
+				'media_type'=> array('audio')
 			]
 		);
               $this->add_control(
@@ -85,9 +76,7 @@ class Sound_Widget extends \Elementor\Widget_Base {
 			[
 				'label' => esc_html__( 'son lorsque le joueur gagne', 'textdomain' ),
 				'type' => \Elementor\Controls_Manager::MEDIA,
-				'default' => [
-					'url' => \Elementor\Utils::get_placeholder_image_src(),
-				]
+				'media_type' => array('audio')
 			]
 		);
         $this->add_control(
@@ -105,44 +94,46 @@ class Sound_Widget extends \Elementor\Widget_Base {
 				'placeholder' => esc_html__( 'Entrez du texte', 'textdomain' ),
 			]
 		);
-            $this->add_control(
-			'msg_rejouer',
-			[
-				'label' => esc_html__( 'message sur le bouton pour rejouer', 'textdomain' ),
-				'type' => \Elementor\Controls_Manager::TEXT,
-				'placeholder' => esc_html__( 'Entrez du texte', 'textdomain' ),
-			]
-		);
                 $this->add_control(
 			'lifes',
 			[
 				'label' => esc_html__( 'nombre de vies', 'textdomain' ),
-				'type' => \Elementor\Controls_Manager::TEXT,
-				'placeholder' => esc_html__( 'Entrez du texte', 'textdomain' ),
+				'type' => \Elementor\Controls_Manager::NUMBER,
+				'min' => 1,
+				'max' => 100,
+				'step' => 1,
+				'default'=>1,
 			]
 		);
     }
+	public function get_script_depends()
+	{
+		return ['sound_widget_js'];
+	}
+	//dépédences fichier css
+	public function get_style_depends()
+	{
+		return ['sound_widget_css'];
+	}
     	protected function render() {
 			//récupération des paramétres enregistrés
 			$settings = $this->get_settings_for_display();
-            	$imagesArray = array_column($settings['list'],'images');
-		        $images = array_column($imagesArray,'url');
-                $sonArray = array_column($settings['list'],'images');
-		        $sons = array_column($sonArray,'url');
+			$list=$settings['list'];
 				$winSound=$settings["audiowin"];
 				$looseSound=$settings["audiofail"];
 				$winMsg=$settings["msg_win"];
 				$looseMsg=$settings["msg_gameover"];
-				$replayMsg=$settings["msg_rejouer"];
-				$hearts=$settings["hearts"];
 				$lifes=$settings["lifes"];
-				echo '<div class="settings" data-win-sound="'.$winSound['url']."' data-fail-sound='".$looseSound['url'].'"></div>';
-				echo '<div class="end"> <p class="win">'.$winMsg.'</p><p class="loose">'.$looseMsg.'</p><button>'
-				.$replayMsg.'</button></div> <div class="soundImages">';		
-                foreach ($images as $index => $item):
-                    echo '<div class="item"> <button class="btn-sound">
-					<image class="img-sound" src="'.$item.'" data-audiosrc="'.$sons[$index].'"></image></button></div>';
-                endforeach;
-				echo "</div>";
+				$firstAudio=array_rand($list);
+		echo '<div id="win"><p class="wl">' . $winMsg . '</div>';
+		echo '<div id="loose"><p id="l1">' . $looseMsg . '</div>';
+		echo '<div class="hearts"><p id="hl">Vies:'.$lifes.'/'.$lifes.'</p></div>';
+		echo '<div class="audioPlayer"><audio id="audioControls" controls src="'.$list[$firstAudio]['son']['url'].'"></audio></div>';
+		echo '<div id="sound_widget" data-winSound="'.$winSound['url'].'" data-looseSound="'
+		.$looseSound['url'].'" data-life="'.$lifes.'">';
+		foreach ($list as $index => $item):
+			echo '<div class="item"><button class="btn-choose" data-linked-audio="' . $item['son']['url'] . '"><img src="' . $item['image']['url']. '"></img></button></div>';
+		endforeach;
+		echo '</div>';
         }
     }

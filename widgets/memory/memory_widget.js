@@ -5,6 +5,7 @@ window.onload=function(){
     let count = 0;
     let winCount=0;  
     var core=document.getElementById("memorygame");
+    if(core!=null && core!=undefined){
     let win=core.getAttribute("data-win");
     let face=core.getAttribute("data-face");
     var buttons=document.getElementsByClassName("memory-button");
@@ -16,6 +17,7 @@ window.onload=function(){
         window.location.reload();
     });
     //on tourne une fonction a chaque clic sur chaque image pour la retourner
+    if(btn!=null && btn!=undefined){
     for (var btn of buttons){
         btn.addEventListener('click', event => {
             //on vérifie que le joueur peut retourner les cartes avant de faire quoi que ce soit
@@ -69,7 +71,7 @@ window.onload=function(){
                 }
             }
         });
-    }
+    }}}
 }
 
 

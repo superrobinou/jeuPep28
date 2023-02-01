@@ -1,0 +1,35 @@
+#win{
+    display: none;
+    z-index: 2;
+}
+#loose{
+    display: none;
+        z-index: 2;
+}
+
+.btn-choose {
+    margin:0;
+    padding:0;
+    cursor: pointer;
+    border: 0;
+    background: transparent;
+}
+.item{
+        margin: 0;
+            padding: 0;
+ border-radius: 50%;
+ max-height: 128px;
+ max-width: 128px;
+}
+#sound_widget{
+        border-radius: 50%;
+        display: flex;
+        flex-wrap: wrap;
+        box-sizing: border-box;
+        gap: 1px;
+        padding: 0;
+        margin: 0;
+        align-items: center;
+        justify-content: center;
+}
+

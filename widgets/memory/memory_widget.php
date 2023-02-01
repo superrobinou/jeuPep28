@@ -2,6 +2,13 @@
 //fichier de définition du widget de memory
 class Memory_Widget extends \Elementor\Widget_Base {
 	//le nom du widget
+	public function __construct($data = [], $args = null)
+	{
+		parent::__construct($data, $args);
+		wp_register_script('memory_widget_js', plugins_url('memory_widget.js', __FILE__));
+		wp_register_style('memory_widget_css', plugins_url('memory_widget.css', __FILE__));
+	}
+
 	public function get_name() {
 		return 'memory_widget';
 	}
