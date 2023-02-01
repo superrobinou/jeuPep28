@@ -141,7 +141,7 @@ class Memory_Widget extends \Elementor\Widget_Base {
 		a la carte) data-IsShowed est un paramétre permettant de savoir si l'image est face caché ou non.
 		 */
 		foreach ($list as $index => $item):
-			echo '<div class="divBack"><button class="memory-button"><img src="'.$settings['face']['url'].'" data-realImage="'.$item.
+			echo '<div class="divBack"><button class="memory-button"><img class="img-item" src="'.$settings['face']['url'].'" data-realImage="'.$item.
 			'" data-isShowed="false"></img></button></div>';
 		endforeach;
 
