@@ -127,7 +127,7 @@ class Sound_Widget extends \Elementor\Widget_Base {
 				$firstAudio=array_rand($list);
 		echo '<div id="win"><p class="wl">' . $winMsg . '</div>';
 		echo '<div id="loose"><p id="l1">' . $looseMsg . '</div>';
-		echo '<div class="hearts"><p id="hl">Vies:'.$lifes.'/'.$lifes.'</p></div>';
+		echo '<div class="hearts"><p id="hl">Vies: 	'.$lifes.'/'.$lifes.'</p></div>';
 		echo '<div class="audioPlayer"><audio id="audioControls" controls src="'.$list[$firstAudio]['son']['url'].'"></audio></div>';
 		echo '<div id="sound_widget" data-winSound="'.$winSound['url'].'" data-looseSound="'
 		.$looseSound['url'].'" data-life="'.$lifes.'">';

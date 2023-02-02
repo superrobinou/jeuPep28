@@ -1,9 +1,11 @@
 //le js est chargé au chargement de la page.
+
 window.onload=function(){
     //count compte le nombre de cartes retourné en même temps (max:2) et winCount le nombre d'images trouvés
     //document est utilisé pour lire les propriétés de l'html formatté par le php (lire l'html pour mieux comprendre)
+
     let count = 0;
-    let winCount=0;  
+    let winCount=0;
     var core=document.getElementById("memorygame");
     if(core!=null && core!=undefined){
     let win=core.getAttribute("data-win");
@@ -17,7 +19,7 @@ window.onload=function(){
         window.location.reload();
     });
     //on tourne une fonction a chaque clic sur chaque image pour la retourner
-    if(btn!=null && btn!=undefined){
+    if(buttons!=null && buttons!=undefined){
     for (var btn of buttons){
         btn.addEventListener('click', event => {
             //on vérifie que le joueur peut retourner les cartes avant de faire quoi que ce soit
