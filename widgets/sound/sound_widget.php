@@ -79,6 +79,13 @@ class Sound_Widget extends \Elementor\Widget_Base {
 				'media_type' => array('audio')
 			]
 		);
+		$this->add_control(
+			'tipep',
+			[
+				'label' => esc_html__('image de tipep', 'textdomain'),
+				'type' => \Elementor\Controls_Manager::MEDIA,
+			]
+		);
         $this->add_control(
 			'msg_gameover',
 			[
@@ -125,10 +132,11 @@ class Sound_Widget extends \Elementor\Widget_Base {
 				$looseMsg=$settings["msg_gameover"];
 				$lifes=$settings["lifes"];
 				$firstAudio=array_rand($list);
+		$tipep = $settings["tipep"]["url"];
 		echo '<div id="win"><p class="wl">' . $winMsg . '</div>';
 		echo '<div id="loose"><p id="l1">' . $looseMsg . '</div>';
 		echo '<div class="hearts"><p id="hl">Vies: 	'.$lifes.'/'.$lifes.'</p></div>';
-		echo '<div class="audioPlayer"><audio id="audioControls" controls src="'.$list[$firstAudio]['son']['url'].'"></audio></div>';
+		echo '<div class="audioPlayer"><button id="audioControls" data-src="'.$list[$firstAudio]['son']['url'].'"><img src="'.$tipep.'"></img></button></div>';
 		echo '<div id="sound_widget" data-winSound="'.$winSound['url'].'" data-looseSound="'
 		.$looseSound['url'].'" data-life="'.$lifes.'">';
 		foreach ($list as $index => $item):

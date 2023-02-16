@@ -1,22 +1,15 @@
-#win{
-background: rgba(0, 0, 139, 0.9);
-        position: absolute;
-    display: none;
-     height: 50vh;
-    width: 50vw;
-    z-index: 2;
-    text-align: center;
-}
+#win,
 #loose{
 background: rgba(0, 0, 139, 0.9);
         position: absolute;
-        height: 50vh;
-        width:50vw;
+        font-size:5em;
+        color:white;
+        height: 100%;
+        width:fit-content;
     display: none;
         z-index: 2;
             text-align: center;
 }
-
 .btn-choose {
     margin:0;
     padding:0;
@@ -34,15 +27,11 @@ shape-outside: circle(50%);
  max-height: 128px;
  max-width: 128px;
 }
-.audioPlayer{
-width: 100%;
-display: flex;
-        flex-wrap: wrap;
-            box-sizing: border-box;
-justify-content: center;
-align-items: center;
-}
 
+.audioPlayer{
+    position: relative;
+    left:50%;
+}
  
 
 #sound_widget{
